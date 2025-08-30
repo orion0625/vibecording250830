@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英単語クイズ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- セットアップ画面 -->
+        <div id="setupScreen" class="setup-screen">
+            <div class="header">
+                <h1 class="title">🎯 英単語クイズ</h1>
+                <p>和訳から英単語を選ぶ4択クイズです</p>
+            </div>
+            
+            <div class="import-section">
+                <h3>📊 Excelファイルをインポート</h3>
+                <p>英単語（A列）、和訳（B列）の形式で作成したExcelファイルを読み込めます</p>
+                <div class="file-input">
+                    <input type="file" id="excelFile" accept=".xlsx,.xls" />
+                    <button class="import-btn" onclick="importExcel()">インポート</button>
+                    <button class="clear-btn" onclick="clearAllWords()">全削除</button>
+                </div>
+            </div>
+            
+            <div class="add-word-form">
+                <input type="text" id="englishInput" placeholder="英単語を入力" />
+                <input type="text" id="japaneseInput" placeholder="和訳を入力" />
+                <button class="add-btn" onclick="addWord()">追加</button>
+            </div>
+            
+            <div class="word-bank" id="wordBank">
+                <p style="text-align: center; color: #666;">単語を追加してください（最低10個必要）</p>
+            </div>
+            
+            <button class="start-btn" id="startBtn" onclick="startQuiz()" disabled>
+                クイズを開始する（100問）
+            </button>
+        </div>
+
+        <!-- クイズ画面 -->
+        <div id="quizScreen" style="display: none;">
+            <div class="header">
+                <h1 class="title">🎯 英単語クイズ</h1>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="currentQuestion">1</div>
+                    <div class="stat-label">問題数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="correctCount">0</div>
+                    <div class="stat-label">正解数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="accuracy">0%</div>
+                    <div class="stat-label">正答率</div>
+                </div>
+            </div>
+
+            <div class="question-area">
+                <div class="question" id="questionText">この日本語の英単語は？</div>
+                <div class="options" id="optionsContainer">
+                    <!-- オプションがここに動的に追加されます -->
+                </div>
+                <button class="next-btn" id="nextBtn" onclick="nextQuestion()">次の問題</button>
+            </div>
+        </div>
+
+        <!-- 結果画面 -->
+        <div id="resultScreen" class="result-screen">
+            <div class="header">
+                <h1 class="title">🎉 クイズ完了！</h1>
+            </div>
+            <div class="final-score" id="finalScore">85%</div>
+            <p id="resultMessage">素晴らしい結果です！</p>
+            <button class="restart-btn" onclick="restartQuiz()">もう一度挑戦</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
